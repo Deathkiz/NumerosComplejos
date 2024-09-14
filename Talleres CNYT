@@ -1,0 +1,149 @@
+#Taller de números complejos
+##Primer punto
+v1 = np.array([[1+2j], [3-1j]])
+v2 = np.array([[2-1j], [4+2j]])
+
+sum_v = v1 + v2
+print(sum_v)
+##Segundo Punto
+
+v = np.array([[2+3j],[1-2j]])
+
+print(-v)
+
+##Tercer punto
+v1 = np.array([[1-1j],[2+2j]])
+v2 = 3 + 1j
+
+result = v1 * v2
+print(result)
+
+##Cuarto punto
+v = np.array([[2-1j],[3+4j]])
+print(v.T)
+
+##Punto cinco
+
+v = np.array([[1+1j],[2-3j]])
+print(np.conjugate(v))
+
+##Punto Sexto
+v = np.array([[1-2j],[3+1j]])
+trans_v = v.T
+print(np.conjugate(trans_v))
+
+
+## Punto Septimo
+m1 = np.array([[1+1j,4],[2-1j,3+2j]])
+m2 = np.array([[2-3j,1],[1j,2+2j]])
+
+result = m1 * m2
+print(result)
+
+
+## Punto Octavo
+m1 = np.array([[2+1j,3],[1-1j,2+2j]])
+print(-m1)
+
+
+## Punto Noveno
+m1 = np.array([[1-1j,2],[3+1j,4-2j]])
+v = 2 + 3j
+print(m1 * v)
+
+
+
+## Punto Decimo
+m1 = np.array([[1+1j,2],[3-1j,4+2j]])
+print(np.conjugate(m1))
+
+
+## Punto 11
+
+m1 = np.array([[1-1j,2+2j],[3,4-1j]])
+print(m1.T)
+
+
+## Punto 12
+m1 = np.array([[1+2j,3-1j],[4,5+1j]])
+trans_v = m1.T
+print(np.conjugate(trans_v))
+
+
+
+## punto 13
+m1 = np.array([[1-1j,2],[3+2j,4-1j]])
+m1.shape
+
+
+
+## punto 14
+m1 = np.array([[1+1j,2-1j],[3,4+1j]])
+v1 = np.array([[2-1j,1+3j]])
+print(m1*v1)
+
+
+
+
+#Taller Hermitianas y producto Tensor
+# Primer Punto
+hermitian_matrix = np.array([[3+0j, 2+1j], [2-1j, 0+1j]])
+is_hermitian = np.allclose(hermitian_matrix, hermitian_matrix.conj().T)
+
+is_hermitian, hermitian_matrix
+
+
+
+#Segundo punto
+unitary_matrix = np.array([[1/np.sqrt(2), 1/np.sqrt(2)*1j], [1/np.sqrt(2)*1j, 1/np.sqrt(2)*1j]])
+is_unitary = np.allclose(np.dot(unitary_matrix, unitary_matrix.conj().T), np.eye(2))
+
+is_unitary, unitary_matrix
+
+#Tercer Punto
+
+v1 = np.array([1+1j, 2-1j])
+v2 = np.array([1-2j, 3+0j])
+producto_tensor = np.kron(v1, v2)
+producto_tensor
+#Cuarto Punto
+Matriz_1= np.array([[0,1], [1,0]])
+Matriz_2 = np.array([[0+1j, 0], [0, 0-1j]])
+producto_tensor = np.kron(Matriz_1, Matriz_2)
+
+producto_tensor
+
+
+#Taller vectores y valores propios
+#Primer punto
+import numpy as np
+
+vector_1 = np.array([1+2j, 3-4j])
+vector_2 = np.array([2-1j, -1+3j])
+
+producto_interno = np.vdot(vector_1, vector_2)
+
+print(producto_interno)
+
+
+
+#Segundo Punto
+
+matriz_1 = np.array([[1+1j, 2-2j], [3+3j, 4-1j]])
+matriz_2 = np.array([[1-2j, 3+1j], [4-4j, 2+2j]])
+
+print(np.dot(np.conjugate(matrix_A).T, matrix_B))
+producto_interno_matriz = np.trace(np.dot(np.conjugate(matrix_A).T, matrix_B))
+
+print(producto_interno_matriz)
+
+
+
+#Tercer punto
+Matriz = np.array([[4, 1], [2, 3]])
+
+# Compute eigenvalues and eigenvectors
+eigenvalues, eigenvectors = np.linalg.eig(Matriz)
+
+print("Eigenvalues:", eigenvalues)
+print("Eigenvectors:\n", eigenvectors)
