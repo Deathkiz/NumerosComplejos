@@ -1,1 +1,84 @@
-#Excercices from the book
+import numpy
+import math
+import random
+def attachedMatriz(matriz):
+    return numpy.transpose(numpy.conjugate(matriz))
+
+def isHermitiana(matriz):
+    return numpy.array_equal(attachedMatriz(matriz),matriz)
+
+def sumCuadrados(number):
+    return abs(number)**2
+
+def vectorNorm(vector):
+    return numpy.linalg.norm(vector)
+
+def transitionAmplitude(vector1, vector2):
+    #Se realiza primero el producto interno
+    internProduct = numpy.vdot(vector1, vector2)
+    normVector1 = vectorNorm(vector1)
+    normVector2 = vectorNorm(vector2)
+    return numpy.round(internProduct/ (normVector2*normVector1),2)
+
+def superposition(vector, position):
+    return round(sumCuadrados(vector[position])/vectorNorm(vector)**2,2)
+
+def media(observer, stateVector):
+    if isHermitiana(observer):
+        return numpy.vdot(stateVector,numpy.dot(observer,stateVector))
+    else:
+        raise ValueError("La matriz no es Hermitiana")
+
+def variance(observer, stateVector):
+    observer_stateVector = media(observer, stateVector)
+    observerStateVectorIdentity = numpy.eye(len(observer)) * observer_stateVector
+    deltaObserver = observer - observerStateVectorIdentity
+    deltaObserverFinal = numpy.dot(deltaObserver,deltaObserver)
+    result = media(deltaObserverFinal, stateVector)
+    return result
+
+def eigenValueVectors(matriz):
+    values, vectors = numpy.linalg.eig(matriz)
+    return values, vectors
+
+def transitionPropabilistic(observer, stateVector):
+    values, vectors = eigenValueVectors(observer)
+    vector_a = random.randrange(0,vectors.shape[0])
+    internProduct = numpy.vdot(vectors[vector_a], stateVector)
+    normInternProduct = vectorNorm(internProduct)
+    result = sumCuadrados(normInternProduct)
+    return result
+
+def isUnitary(matriz):
+    identidad = numpy.eye(matriz.shape[0])
+    return numpy.allclose(identidad, numpy.dot(matriz.conj().T, matriz))
+
+def exercise_431(observer):
+    spinX = numpy.array([1,0])
+    product = numpy.dot(observer, spinX)
+    probability = superposition(product, 0)
+    return probability
+
+def exercise_432(observer):
+    spinX = numpy.array([1, 0])
+    valores_propios, vectores_propios = eigenValueVectors(observer)
+    producto = numpy.dot(observer, spinX)
+    
+    p1 = vectorNorm(numpy.dot(producto, vectores_propios[:, 0]))
+    p2 = vectorNorm(numpy.dot(producto, vectores_propios[:, 1]))
+
+    resultado = p1 * valores_propios[0] + p2 * valores_propios[1] #Superposicion Cuantica 
+    return resultado
+
+def exercise_441(matriz1, matriz2):
+    matriz1 = numpy.array(matriz1)
+    matriz2 = numpy.array(matriz2)
+    if isUnitary(matriz1) and isUnitary(matriz2):
+        product = numpy.dot(matriz1,matriz2)
+        if isUnitary(product):
+            return True
+        else:
+            return False
+    else:
+        print("No son matrices unitarias")
+
